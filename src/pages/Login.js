@@ -2,6 +2,19 @@ import React, { useRef, useState } from 'react';
 import Input from '../components/Input';
 
 export default function Login() {
+  const [error, setError] = useState(false);
+  const emailRef = useRef()
+  const passwordRef = useRef()
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (emailRef.current.value === '' || passwordRef.current.value === '') {
+      setError(true);
+      return;
+    }
+    setError(false);
+  }
+
 
   return (
     <div className="bg-background">
@@ -21,7 +34,6 @@ export default function Login() {
             </div>
             {error && (
               <div className="p-4 flex gap-3 items-center text-sm text-red-400 border-red-400 border-2 rounded-lg" role="alert">
-                <TriangleAlert color="rgb(248 113 113)" />
                 <span className="font-medium">{error}</span>
               </div>
             )}
@@ -65,13 +77,11 @@ export default function Login() {
                 </a>
                 <div className="flex gap-1">
                   <p className="text-sm font-medium text-text">Még nincs fiókod?</p>
-                  <Link to="/signup" className="text-sm font-bold hover:text-primary-500 transition-all duration-150 text-text">Regisztrálj!</Link>
                 </div>
 
               </div>
               <button
                 className="px-4 py-2.5 border justify-center w-full flex gap-2 border-neutral-700 rounded-lg text-slate-200 hover:border-primary-600 hover:shadow transition duration-150"
-                onClick={handleGoogleLogin}
               >
                 <img
                   className="w-6 h-6"
